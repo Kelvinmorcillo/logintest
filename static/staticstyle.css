@@ -9,6 +9,10 @@ html, body {
    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Primary font for the page */
 }
 
+.namepage {
+   text-transform: capitalize;
+ }
+ 
 /* === Body Layout & Centering === */
 body {
    display: flex;            /* Enables Flexbox */

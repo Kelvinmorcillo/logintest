@@ -4,8 +4,7 @@
     <title>{{ title }}</title>
     <link href="{{ url_for('static', filename='staticstyle.css') }}" rel="stylesheet" type="text/css">
 </head>
-<body>
-    <h1>Olá {{ namepage }}</h1>
+<h1>Olá <span class="namepage">{{ username }}</span></h1>
     <h3>Você está logado com o email <span class="red">{{ usermail }}</span></h3>
     <p>{{ date }}</p>
 </body>
