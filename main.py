@@ -45,7 +45,8 @@ def login():
     if username in logins and logins[username]['password'] == password:
         return render_template('oi.html',
                                         title = 'sucesso',
-                                        namepage= username,
+                                        namepage = username,
+                                        username = username.capitalize(),
                                         usermail = logins[username]['email'],    
                                         # Format for just date ,
                                         date = current_time_str)
