@@ -7,9 +7,11 @@ logins ={
     'a': {'email': 'a1@a1.com', 'password': 'a1'},
     'cida':   {'email': 'tia@cida.com', 'password': '123'},
     'jean':   {'email': 'jebz@jean.com', 'password': 'jebz'},
-    'xisto':   {'email': 'xisto@cogu.com', 'password': 'galego'}
+    'xisto':   {'email': 'xisto@cogu.com', 'password': 'galego'},
+    'taigo':   {'email': 'taigo@fefa.com', 'password': 'salgado'}
+    
 }
-#logs
+#logs   
 
 def get_page(filename):
     """
