@@ -11,7 +11,9 @@ logins ={
     'jean':   {'email': 'jebz@jean.com', 'password': 'jebz'},
     'xisto':   {'email': 'xisto@cogu.com', 'password': 'galego'},
     'taigo':   {'email': 'taigo@fefa.com', 'password': 'salgado'},
-    'patrice':   {'email': 's@2.com', 'password': 'juju'}
+    'patrice':   {'email': 's@2.com', 'password': 'juju'},
+    'neide':  {'email': 'neide@mae.com', 'password': 'neide'},
+
     
 }
 #logs   
@@ -35,27 +37,54 @@ logins ={
 
 @app.route('/login', methods=['POST'])
 def login():
+    """
+    Handles login form submission.
+
+    Args:
+        request.form['username']: Username given by the user.
+        request.form['password']: Password given by the user.
+
+    Returns:
+        A rendered HTML template (either 'oi.html' or 'erro.html') based on the
+        validity of the login credentials.
+
+    """
+    
+
     username = request.form['username']
     password = request.form['password']
-    #ge the time
     now = datetime.datetime.now()
-    current_time_str = now.strftime(" %d/%m/%Y %H:%M") 
+    current_time_str = now.strftime(" %d/%m/%Y %H:%M")
 
-
-    if username in logins and logins[username]['password'] == password:
+    # First, check if it's neide and password matches
+    if username == 'neide' and logins[username]['password'] == password:
         return render_template('oi.html',
-                                        title = 'sucesso',
-                                        namepage = username,
-                                        username = username.capitalize(),
-                                        usermail = logins[username]['email'],    
-                                        # Format for just date ,
-                                        date = current_time_str)
+                               title='sucesso',
+                               namepage='Mãe',
+                               username='Mãe',
+                               usermail=logins[username]['email'],
+                               date=current_time_str)
+    # Then, check for all other users
+    elif username in logins and logins[username]['password'] == password:
+        return render_template('oi.html',
+                               title='sucesso',
+                               namepage=username.capitalize(),
+                               username=username.capitalize(),
+                               usermail=logins[username]['email'],
+                               date=current_time_str)
     else:
         return render_template('erro.html', title='Erro de Login', message="Usuário ou senha inválidos.")
+
  
 @app.route('/')
 def  index():
     
+    """
+    Handles the root URL ('/').
+
+    Returns:
+        A rendered HTML template ('index.html') for the login form.
+    """
     return render_template('index.html', title = 'Login de usuário')
 
 
