@@ -1,6 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import datetime, os
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True # Good for development
+
 
 logins ={
     'kelvin': {'email': 'k@m.com', 'password': '1234'},
@@ -13,8 +15,8 @@ logins ={
 }
 #logs   
 
-def get_page(filename):
-    """
+#def get_page(filename):
+"""
     Reads and returns the content of a file specified by the filename.
 
     Args:
@@ -22,10 +24,12 @@ def get_page(filename):
 
     Returns:
         str: The content of the file as a string.
-    """
+   redudante com render_template
+   
+"""
 
-    with open(filename, encoding="utf-8") as f: # Specify UTF-8 encoding here
-        return f.read()
+  #  with open(filename, encoding="utf-8") as f: # Specify UTF-8 encoding here
+ #       return f.read()
 
 
 @app.route('/login', methods=['POST'])
@@ -38,40 +42,19 @@ def login():
 
 
     if username in logins and logins[username]['password'] == password:
-        page = get_page('templates/oi.html')
-        page = page.replace('{namepage}', username)
-        page = page.replace('{usermail}', logins[username]['email'])    
-  # Format for just date 
-        page = page.replace('{date}', current_time_str)
-        return page
+        return render_template('oi.html',
+                                        title = 'sucesso',
+                                        namepage= username,
+                                        usermail = logins[username]['email'],    
+                                        # Format for just date ,
+                                        date = current_time_str)
     else:
-        return 'sai daqui, não te conheço'
-
+        return render_template('erro.html', title='Erro de Login', message="Usuário ou senha inválidos.")
+ 
 @app.route('/')
 def  index():
-    page = f'''
-    <!DOCTYPE html>
-    <html>
-
-    <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>login teste 1</title>
-    <link href="/staticstyle.css" rel="stylesheet" type="text/css" />
-    </head>
-
-    <body>
-    <form method="post" action="/login">
-        <p> Usuario : <input type="text" name = "username" required></p>
-        <p> Senha : <input type="password" name = "password"  required></p>
-        <p>Email:<input type="email"  name = "email"  required></p>
-        <button type="submit" >Login</button>
-    </form>
-
-    </body>
-
-    </html>'''
-    return page
+    
+    return render_template('index.html', title = 'Login de usuário')
 
 
 
